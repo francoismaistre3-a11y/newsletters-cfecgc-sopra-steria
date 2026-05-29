@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index Newsletters CFE-CGC Sopra Steria</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+  :root {
+    --navy: #1a2744;
+    --blue: #1e4fc2;
+    --accent: #e8401c;
+    --gold: #c9a227;
+    --light: #f4f6fb;
+    --border: #dce3f0;
+    --text: #1a2744;
+    --muted: #6b7a9a;
+    --white: #ffffff;
+    --tag-bg: #eef2fc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(26,39,68,0.25);
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+  }
+
+  .logo-badge {
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    color: white;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .logo-text h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.3px;
+  }
+
+  .logo-text p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 1px;
+    font-weight: 300;
+  }
+
+  .search-wrap {
+    flex: 1;
+    min-width: 240px;
+    position: relative;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .search-wrap input::placeholder { color: rgba(255,255,255,0.4); }
+  .search-wrap input:focus {
+    border-color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.15);
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.4);
+    font-size: 15px;
+    pointer-events: none;
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 11px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .clear-btn.visible { display: flex; }
+
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover { border-color: rgba(255,255,255,0.5); color: white; }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 24px;
+  }
+
+  .stats-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+  }
+
+  .stat-pill {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .stat-pill strong { color: var(--text); }
+
+  .result-count {
+    font-size: 13px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* NEWSLETTER GROUP */
+  .newsletter-group {
+    margin-bottom: 32px;
+  }
+
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .group-month {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--navy);
+  }
+
+  .group-badge {
+    background: var(--navy);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .group-file {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* SLIDE GROUP */
+  .slide-group { margin-bottom: 18px; }
+
+  .slide-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    padding-left: 2px;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+  }
+
+  /* ARTICLE CARD */
+  .article-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+
+  .article-card:hover {
+    border-color: var(--blue);
+    box-shadow: 0 4px 16px rgba(30,79,194,0.12);
+    transform: translateY(-1px);
+  }
+
+  .article-card.main-title {
+    border-left: 4px solid var(--accent);
+    background: linear-gradient(135deg, #fffdf9 0%, white 100%);
+  }
+
+  .article-card.main-title:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgba(232,64,28,0.12);
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .article-card.main-title .card-title {
+    font-size: 14px;
+  }
+
+  .card-excerpt {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: var(--tag-bg);
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .tag.accent {
+    background: #fff0ed;
+    color: var(--accent);
+  }
+
+  .page-ref {
+    font-size: 10px;
+    color: var(--muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+
+  /* HIGHLIGHT */
+  mark {
+    background: #fff3a3;
+    color: inherit;
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+
+  .empty-state .empty-icon { font-size: 40px; margin-bottom: 16px; }
+  .empty-state h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 16px 24px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    background: white;
+  }
+
+  /* HIDDEN */
+  .hidden { display: none !important; }
+
+  @media (max-width: 600px) {
+    .header-inner { padding: 14px 16px; gap: 12px; }
+    .logo-badge { width: 36px; height: 36px; font-size: 11px; }
+    .logo-text h1 { font-size: 13px; }
+    main { padding: 16px; }
+    .articles-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-badge">CFE<br>CGC</div>
+      <div class="logo-text">
+        <h1>Index Newsletters</h1>
+        <p>Sopra Steria · Usage interne</p>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Rechercher un article, mot-clé…" autocomplete="off">
+      <button class="clear-btn" id="clearBtn" title="Effacer">✕</button>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">Toutes</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="stats-bar" id="statsBar">
+    <!-- dynamically filled -->
+  </div>
+  <div id="content">
+    <!-- dynamically filled -->
+  </div>
+</main>
+
+<footer>
+  Index généré automatiquement · CFE-CGC Sopra Steria · Document interne confidentiel
+</footer>
+
+<script>
+// ===== DATA (inline, no external requests) =====
+const DATA = [
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 1,
+    "title": "Pour une vraie politique seniors à Sopra Steria …",
+    "full_text": "Pour une vraie politique seniors à Sopra Steria …",
+    "is_main_title": true,
+    "font_size": 14.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 1,
+    "title": "Ce que la CFE-CGC demande à la direction Cumul emploi-retraite et temps partiel facilités et encouragés Visite médicale…",
+    "full_text": "Ce que la CFE-CGC demande à la direction Cumul emploi-retraite et temps partiel facilités et encouragés Visite médicale rapprochée (tous les 2 ans) dès 55 ans Moins de missions \"casse-cou\" : finis les projets en mode pompier confiés aux plus expérimentés sous prétexte qu'ils \"gèrent\" Prime sport / bien-être : financer les activités sportives, c’est investir dans la santé des seniors et réduire l'absentéisme; Voir ci-dessous, l’expérience Carrefour Équipement ergonomique garanti : fauteuil, écran",
+    "is_main_title": false,
+    "font_size": 12.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 1,
+    "title": "Ce qu'un senior apporte à son équipe Expérience : lecture des risques, mémoire des erreurs déjà commises, recul sur les…",
+    "full_text": "Ce qu'un senior apporte à son équipe Expérience : lecture des risques, mémoire des erreurs déjà commises, recul sur les décisions Stabilité : point de repère dans les équipes à fort turn-over, connaissance durable des clients Transmission : mentor naturel entre générations — un rôle trop rarement formalisé Fiabilité : engagement dans la durée, vision long terme, moindre volatilité",
+    "is_main_title": false,
+    "font_size": 12.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 1,
+    "title": "Ce que vivent les seniors — et qu’on ne voit pas toujours",
+    "full_text": "Ce que vivent les seniors — et qu’on ne voit pas toujours",
+    "is_main_title": false,
+    "font_size": 12.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 1,
+    "title": "Carrefour finance la gym de ses salariés !",
+    "full_text": "Carrefour finance la gym de ses salariés !",
+    "is_main_title": false,
+    "font_size": 11.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 1,
+    "title": "Ce que la CFE-CGC demande à la direction Cumul emploi-retraite et temps partiel facilités et encouragés Visite médicale…",
+    "full_text": "Si d’autres le font, pourquoi pas nous ? Les bénéfices pour l’entreprise : Meilleure productivité des salariés Meilleure satisfaction (score GPTW) Meilleure attractivité de l’entreprise Ca nous semble mieux qu’une page ‘Santé et sécurité’ en libre service En savoir plus",
+    "is_main_title": false,
+    "font_size": 12.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 2,
+    "title": "Quand trop d’info tue l’info Les méfaits de « l’infobésité » et comment s’en prémunir",
+    "full_text": "Quand trop d’info tue l’info Les méfaits de « l’infobésité » et comment s’en prémunir",
+    "is_main_title": true,
+    "font_size": 14.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 2,
+    "title": "L’impact de l’IA sur l’emploi Danger !",
+    "full_text": "L’impact de l’IA sur l’emploi Danger !",
+    "is_main_title": true,
+    "font_size": 14.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 3,
+    "title": "Le Compte Personnel de Formation – Comment l’utiliser ?",
+    "full_text": "Le Compte Personnel de Formation – Comment l’utiliser ?",
+    "is_main_title": true,
+    "font_size": 14.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 3,
+    "title": "Le principe Le Compte Personnel de Formation est un droit individuel attaché à chaque salarié, de l'entrée dans la vie…",
+    "full_text": "Le principe Le Compte Personnel de Formation est un droit individuel attaché à chaque salarié, de l'entrée dans la vie active jusqu'à la retraite. Il vous appartient — pas à votre employeur. 💰 Acquisition des droits 500 € crédités automatiquement par année travaillée, plafond 5 000 € (cas général). ⚠️ Une fois le plafond atteint, les droits cessent de s'accumuler — sans se perdre. Et à la retraite, le solde restant est définitivement perdu : mieux vaut les utiliser régulièrement. Les droits rest",
+    "is_main_title": false,
+    "font_size": 12.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 3,
+    "title": "Vous allez pouvoir l’utiliser par exemple pour une formation que l’employeur refuse de vous donner, ou pour une…",
+    "full_text": "Vous allez pouvoir l’utiliser par exemple pour une formation que l’employeur refuse de vous donner, ou pour une reconversion ou une passion (CAP cuisine, cours de massage, …). Attention à bien la suivre jusqu’au bout et à passer la certification (s’il y en a une), sous peine de sanctions. Le reste à charge est variable et au minimum de 150€. Renseignez-vous.",
+    "is_main_title": false,
+    "font_size": 12.0
+  },
+  {
+    "newsletter": "Mai 2026",
+    "month": 5,
+    "year": 2026,
+    "filename": "2026_05_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 3,
+    "title": "Résultats du T1 : Excellents ! La bourse apprécie ….",
+    "full_text": "Résultats du T1 : Excellents ! La bourse apprécie ….",
+    "is_main_title": true,
+    "font_size": 16.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 1,
+    "title": "Retours de CRH, suite Les mieux lotis sont les mêmes chaque année",
+    "full_text": "Retours de CRH, suite Les mieux lotis sont les mêmes chaque année",
+    "is_main_title": true,
+    "font_size": 14.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 1,
+    "title": "s’efforce de remettre les 2 en cohérence depuis que l’expertise de la « Commission Politique Sociale » du CSE de 2021 a…",
+    "full_text": "s’efforce de remettre les 2 en cohérence depuis que l’expertise de la « Commission Politique Sociale » du CSE de 2021 a souligné ces incohérences. Vérifiez sur votre fiche de paie vote position SYNTEC, elle est importante, aussi parce qu’elle garantit un salaire minimum. La part variable doit-elle être intégrée dans le calcul de ce salaire minimum ? En CSE, la direction nous dit que oui et ne voit pas le problème, mais cela signifie que quelqu’un de sous-payé, va voir son variable servir d’alibi",
+    "is_main_title": false,
+    "font_size": 12.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 2,
+    "title": "Participation et Intéressement, comment les gérer (PEE, PERECO, ou paiement ) ?",
+    "full_text": "Participation et Intéressement, comment les gérer (PEE, PERECO, ou paiement ) ?",
+    "is_main_title": true,
+    "font_size": 14.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 2,
+    "title": "Nouveaux élus CFE-CGC Bienvenue à eux !",
+    "full_text": "Nouveaux élus CFE-CGC Bienvenue à eux !",
+    "is_main_title": false,
+    "font_size": 12.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 2,
+    "title": "On peut aussi verser une partie de son salaire sur le PERECO qui sera déduit du salaire imposable, pour baisser son…",
+    "full_text": "On peut aussi verser une partie de son salaire sur le PERECO qui sera déduit du salaire imposable, pour baisser son imposition. Bref, il est utile de bien se renseigner pour optimiser ces placements selon votre cas. La suite ? Sopra Steria devrait bientôt permettre de placer également les sommes du CET ( Compte Epargne Temps) sur le PERECO, voire proposer un abondement comme on le fait ailleurs : Cela dépendra des négociations avec les organisations syndicales",
+    "is_main_title": false,
+    "font_size": 12.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 2,
+    "title": "Rupture Conventionnelle Réduction de la durée d’indemnisation",
+    "full_text": "Rupture Conventionnelle Réduction de la durée d’indemnisation",
+    "is_main_title": false,
+    "font_size": 12.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 3,
+    "title": "Formations – Bilan 2025 et Plan 2026",
+    "full_text": "Formations – Bilan 2025 et Plan 2026",
+    "is_main_title": true,
+    "font_size": 14.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 3,
+    "title": "Bilan 2025 Une baisse significative du nb de jours de formation par salarié qui passe de 4,8 en 2024 à 4,3 en 2025,…",
+    "full_text": "Bilan 2025 Une baisse significative du nb de jours de formation par salarié qui passe de 4,8 en 2024 à 4,3 en 2025, pour un objectif de 5. Due aux mauvais résultats du 1er semestre, selon la direction. Des certifications en hausse : 2.400 en 2025 vs 2.000 en 2024 et qui concernent les sujets jugés prioritaires : Notre conseil : Choisissez de préférence les formations certifiantes, elles peuvent vous donner une plus value auprès de nos clients … et pour vous en interne … ou chez les concurrents.",
+    "is_main_title": false,
+    "font_size": 11.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 3,
+    "title": "Objectifs 2026 L’objectif sera : de 3.120 certifications, dont : 52% sur le cloud et l’IA 16% sur la data 5 jours de…",
+    "full_text": "Objectifs 2026 L’objectif sera : de 3.120 certifications, dont : 52% sur le cloud et l’IA 16% sur la data 5 jours de formation par salarié Un dosage entre les différents modes de formation :",
+    "is_main_title": false,
+    "font_size": 11.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 3,
+    "title": "Se former en inter-contrat ? C’est possible ! Inscription à la dernière minute : Pour rappel, il est souvent possible…",
+    "full_text": "Se former en inter-contrat ? C’est possible ! Inscription à la dernière minute : Pour rappel, il est souvent possible de s’inscrire à la dernière minute, en particulier pour les formations en interne, et il reste souvent des places. Pour voir les formations qui ont lieu en ce moment ou dans les prochains jours, aller dans Click2Learn, Mon calendrier de formation, puis sélectionner Tous les évènements. Vous pouvez aussi filtrer par mot-clef. Pour chaque formation, le nombre de places disponibles",
+    "is_main_title": false,
+    "font_size": 11.0
+  },
+  {
+    "newsletter": "Avril 2026",
+    "month": 4,
+    "year": 2026,
+    "filename": "2026_04_Newsletter_CFE-CGC_v0_1.pptx",
+    "slide": 3,
+    "title": "Cette étude amusante révèle que le charabia de l’entreprise n’est pas une preuve de performance …",
+    "full_text": "Cette étude amusante révèle que le charabia de l’entreprise n’est pas une preuve de performance …",
+    "is_main_title": true,
+    "font_size": 14.0
+  }
+];
+
+// ===== STATE =====
+let currentFilter = 'all';
+let currentSearch = '';
+
+// ===== INIT =====
+function init() {
+  buildFilters();
+  renderStats();
+  renderContent();
+  setupEvents();
+}
+
+function buildFilters() {
+  const newsletters = [...new Set(DATA.map(d => d.newsletter))].sort((a,b) => {
+    const ma = a.match(/(\d+)/g); const mb = b.match(/(\d+)/g);
+    if (ma && mb) return (parseInt(mb[1])*100+parseInt(mb[0])) - (parseInt(ma[1])*100+parseInt(ma[0]));
+    return 0;
+  });
+  const container = document.getElementById('filters');
+  newsletters.forEach(nl => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.filter = nl;
+    btn.textContent = nl;
+    container.appendChild(btn);
+  });
+}
+
+function renderStats() {
+  const total = DATA.length;
+  const newsletters = new Set(DATA.map(d => d.newsletter)).size;
+  const main = DATA.filter(d => d.is_main_title).length;
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat-pill"><strong>${newsletters}</strong> newsletters</div>
+    <div class="stat-pill"><strong>${total}</strong> articles indexés</div>
+    <div class="stat-pill"><strong>${main}</strong> articles principaux</div>
+    <div class="result-count" id="resultCount"></div>
+  `;
+}
+
+function highlight(text, query) {
+  if (!query) return escHtml(text);
+  const parts = escHtml(text).split(new RegExp(`(${escRegex(query)})`, 'gi'));
+  return parts.map((p, i) => i % 2 === 1 ? `<mark>${p}</mark>` : p).join('');
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function getFiltered() {
+  let items = DATA;
+  if (currentFilter !== 'all') {
+    items = items.filter(d => d.newsletter === currentFilter);
+  }
+  if (currentSearch.trim()) {
+    const q = currentSearch.trim().toLowerCase();
+    items = items.filter(d =>
+      d.title.toLowerCase().includes(q) ||
+      d.full_text.toLowerCase().includes(q) ||
+      d.newsletter.toLowerCase().includes(q)
+    );
+  }
+  return items;
+}
+
+function renderContent() {
+  const items = getFiltered();
+  const content = document.getElementById('content');
+  const resultCount = document.getElementById('resultCount');
+
+  if (resultCount) {
+    resultCount.textContent = currentSearch ? `${items.length} résultat${items.length !== 1 ? 's' : ''}` : '';
+  }
+
+  if (items.length === 0) {
+    content.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <h3>Aucun résultat</h3>
+        <p>Essayez avec d'autres mots-clés.</p>
+      </div>`;
+    return;
+  }
+
+  // Group by newsletter then slide
+  const byNewsletter = {};
+  items.forEach(item => {
+    if (!byNewsletter[item.newsletter]) byNewsletter[item.newsletter] = {};
+    const key = `Slide ${item.slide}`;
+    if (!byNewsletter[item.newsletter][key]) byNewsletter[item.newsletter][key] = [];
+    byNewsletter[item.newsletter][key].push(item);
+  });
+
+  // Sort newsletters by date desc
+  const nlOrder = [...new Set(DATA.map(d => d.newsletter))];
+
+  let html = '';
+  nlOrder.forEach(nl => {
+    if (!byNewsletter[nl]) return;
+    const slides = byNewsletter[nl];
+    const nlData = DATA.find(d => d.newsletter === nl);
+    const articleCount = Object.values(slides).flat().length;
+
+    html += `<div class="newsletter-group">
+      <div class="group-header">
+        <span class="group-month">${nl}</span>
+        <span class="group-badge">${articleCount} article${articleCount>1?'s':''}</span>
+        <span class="group-file">📎 ${nlData.filename}</span>
+      </div>`;
+
+    const slideLabels = { 'Slide 1': 'Page 1', 'Slide 2': 'Page 2', 'Slide 3': 'Page 3' };
+    Object.entries(slides).sort((a,b) => a[0].localeCompare(b[0])).forEach(([slide, slideItems]) => {
+      html += `<div class="slide-group">
+        <div class="slide-label">${slideLabels[slide] || slide}</div>
+        <div class="articles-grid">`;
+
+      slideItems.forEach(item => {
+        const q = currentSearch.trim();
+        const titleHtml = highlight(item.title, q);
+        // Excerpt: second sentence from full_text if available
+        let excerptRaw = item.full_text;
+        if (excerptRaw.length > item.title.length + 10) {
+          excerptRaw = excerptRaw.slice(item.title.length).trim();
+        }
+        const excerptHtml = excerptRaw ? highlight(excerptRaw.slice(0, 150), q) : '';
+
+        html += `<div class="article-card${item.is_main_title ? ' main-title' : ''}" 
+              onclick="openArticle('${escHtml(item.filename)}', ${item.slide})"
+              title="Cliquer pour ouvrir ${escHtml(item.filename)} — ${slide}">
+          <div class="card-title">${titleHtml}</div>
+          ${excerptHtml ? `<div class="card-excerpt">${excerptHtml}</div>` : ''}
+          <div class="card-footer">
+            ${item.is_main_title ? '<span class="tag accent">Article principal</span>' : '<span class="tag">Sous-rubrique</span>'}
+            <span class="page-ref">p.${item.slide}</span>
+          </div>
+        </div>`;
+      });
+
+      html += `</div></div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  content.innerHTML = html;
+}
+
+function openArticle(filename, slide) {
+  // Opens the PPTX file if it's accessible locally, or shows info
+  // Since this is a local index, we just show a notification
+  const msg = `Fichier : ${filename}\nDans votre explorateur : ouvrir le PPTX et aller à la page ${slide}`;
+  
+  // Try to create a link to the file
+  const anchor = document.createElement('a');
+  anchor.href = filename;
+  anchor.target = '_blank';
+  
+  // Show a toast instead
+  showToast(`📄 ${filename} — Page ${slide}`);
+}
+
+function showToast(msg) {
+  let toast = document.getElementById('toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.style.cssText = `
+      position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+      background:var(--navy); color:white; padding:10px 20px; border-radius:8px;
+      font-size:13px; z-index:9999; max-width:80vw; text-align:center;
+      box-shadow:0 4px 20px rgba(0,0,0,0.3); transition:opacity 0.3s;
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 3500);
+}
+
+function setupEvents() {
+  const input = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('clearBtn');
+
+  input.addEventListener('input', () => {
+    currentSearch = input.value;
+    clearBtn.classList.toggle('visible', currentSearch.length > 0);
+    renderContent();
+  });
+
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    currentSearch = '';
+    clearBtn.classList.remove('visible');
+    input.focus();
+    renderContent();
+  });
+
+  document.getElementById('filters').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderContent();
+  });
+}
+
+init();
+</script>
+</body>
+</html>
