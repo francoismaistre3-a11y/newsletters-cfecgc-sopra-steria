@@ -1,0 +1,174 @@
+{
+  "articles": [
+    {
+      "titre": "Pour une vraie politique seniors à Sopra Steria…",
+      "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=1",
+      "newsletter": "2026_05",
+      "page": 1,
+      "mots_cles": ["seniors", "politique", "santé", "ergonomie", "CFE-CGC"],
+      "resume": "Analyse des besoins spécifiques des seniors et propositions pour une meilleure intégration en entreprise.",
+      "couleur": "#e3f2fd",
+      "actif": true
+    },
+    {
+      "titre": "Quand trop d'info tue l'info",
+      "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=2",
+      "newsletter": "2026_05",
+      "page": 2,
+      "mots_cles": ["infobésité", "communication", "outils numériques", "productivité"],
+      "resume": "Comment lutter contre la surcharge d'informations au travail et ses impacts sur la productivité.",
+      "couleur": "#e8f5e9",
+      "actif": true
+    },
+    {
+      "titre": "L'impact de l'IA sur l'emploi",
+      "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=3",
+      "newsletter": "2026_05",
+      "page": 3,
+      "mots_cles": ["IA", "emploi", "licenciement", "Oracle", "automatisation"],
+      "resume": "30 000 licenciements chez Oracle pour financer l'IA : analyse des conséquences pour les salariés.",
+      "couleur": "#ffebee",
+      "actif": true
+    },
+    {
+      "titre": "Compte Épargne Temps (CET)",
+      "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=4",
+      "newsletter": "2026_05",
+      "page": 4,
+      "mots_cles": ["CET", "congés", "épargne", "report", "monétisation"],
+      "resume": "Comment reporter ou monétiser vos jours de congés avant le 31 mai.",
+      "couleur": "#fff3e0",
+      "actif": true
+    },
+    {
+      "titre": "Jours de congés à écouler avant fin mai : Pensez au don de jours",
+      "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=4",
+      "newsletter": "2026_05",
+      "page": 4,
+      "mots_cles": ["congés", "don", "solidarité", "collègues"],
+      "resume": "Faites un don de jours pour aider vos collègues dans le besoin (ex: parent d'enfant handicapé).",
+      "couleur": "#fce4ec",
+      "actif": true
+    },
+    {
+      "titre": "Le Compte Personnel de Formation – Comment l’utiliser ?",
+      "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=5",
+      "newsletter": "2026_05",
+      "page": 5,
+      "mots_cles": ["CPF", "formation", "droits", "moncompteformation"],
+      "resume": "Guide pratique pour utiliser votre CPF avant la retraite et éviter de perdre vos droits.",
+      "couleur": "#e3f2fd",
+      "actif": true
+    },
+    {
+      "titre": "Subvention Sport Culture – 90€ (SSG)",
+      "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=5",
+      "newsletter": "2026_05",
+      "page": 5,
+      "mots_cles": ["sport", "culture", "subvention", "SSG", "CSE"],
+      "resume": "Bénéficiez d'une subvention de 90€ pour vos activités sportives ou culturelles (à déclarer avant le 30 juin).",
+      "couleur": "#e8f5e9",
+      "actif": true
+    },
+    {
+      "titre": "Résultats du T1 : Excellents ! La bourse apprécie...",
+      "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=6",
+      "newsletter": "2026_05",
+      "page": 6,
+      "mots_cles": ["résultats", "T1", "bourse", "actionnaires", "salaires"],
+      "resume": "Analyse des résultats du premier trimestre : excellents pour la bourse, mais stagnation des salaires.",
+      "couleur": "#fff8e1",
+      "actif": true
+    },
+    {
+      "titre": "Retours de CRH, suite",
+      "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=1",
+      "newsletter": "2026_04",
+      "page": 1,
+      "mots_cles": ["CRH", "augmentations", "sélectivité", "DHG", "inégalités"],
+      "resume": "Analyse des inégalités dans les augmentations de salaire : les mieux lotis sont toujours les mêmes.",
+      "couleur": "#f3e5f5",
+      "actif": true
+    },
+    {
+      "titre": "Télétravail : Bilan 2025",
+      "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=2",
+      "newsletter": "2026_04",
+      "page": 2,
+      "mots_cles": ["télétravail", "bilan", "2025", "flexibilité"],
+      "resume": "90% des salariés en télétravail régulier : bilan des pratiques et perspectives pour 2026.",
+      "couleur": "#e1f5fe",
+      "actif": true
+    },
+    {
+      "titre": "Participation et Intéressement, comment les gérer (PEE, PERECO, ou paiement)?",
+      "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=2",
+      "newsletter": "2026_04",
+      "page": 2,
+      "mots_cles": ["participation", "intéressement", "PEE", "PERECO", "Amundi"],
+      "resume": "Optimisez vos placements PEE et PERECO pour maximiser vos avantages fiscaux et préparer la retraite.",
+      "couleur": "#e8f5e9",
+      "actif": true
+    },
+    {
+      "titre": "Seniors",
+      "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
+      "newsletter": "2026_04",
+      "page": 3,
+      "mots_cles": ["seniors", "PERECO", "retraite", "optimisation", "épargne"],
+      "resume": "Conseils pour les seniors : comment préparer sereinement la retraite avec le PERECO.",
+      "couleur": "#fff3e0",
+      "actif": true
+    },
+    {
+      "titre": "Nouveaux élus CFE-CGC",
+      "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
+      "newsletter": "2026_04",
+      "page": 3,
+      "mots_cles": ["élus", "CFE-CGC", "Arnaud DE BATZ", "Isabelle JULIA", "représentants"],
+      "resume": "Bienvenue à nos nouveaux représentants élus en 2026 : Arnaud DE BATZ et Isabelle JULIA.",
+      "couleur": "#fce4ec",
+      "actif": true
+    },
+    {
+      "titre": "Rupture Conventionnelle",
+      "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
+      "newsletter": "2026_04",
+      "page": 3,
+      "mots_cles": ["rupture conventionnelle", "indemnisation", "seniors", "durée"],
+      "resume": "Réduction des durées d'indemnisation : ce que cela change pour les salariés, surtout les seniors.",
+      "couleur": "#ffebee",
+      "actif": true
+    },
+    {
+      "titre": "Formations – Bilan 2025 et Plan 2026",
+      "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=4",
+      "newsletter": "2026_04",
+      "page": 4,
+      "mots_cles": ["formations", "bilan", "2025", "2026", "certifications", "cloud", "IA"],
+      "resume": "Bilan des formations 2025 et objectifs pour 2026 : focus sur le cloud, l'IA et la data.",
+      "couleur": "#e1f5fe",
+      "actif": true
+    },
+    {
+      "titre": "Cette étude amusante révèle que le charabia de l'entreprise n'est pas une preuve de performance...",
+      "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
+      "newsletter": "2026_04",
+      "page": 3,
+      "mots_cles": ["étude", "jargon", "performance", "management", "langage"],
+      "resume": "Pourquoi le jargon managérial creux est souvent le signe d'une mauvaise performance en entreprise.",
+      "couleur": "#f3e5f5",
+      "actif": true
+    },
+    {
+      "titre": "Se former en inter-contrat ? C'est possible !",
+      "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=5",
+      "newsletter": "2026_04",
+      "page": 5,
+      "mots_cles": ["formation", "inter-contrat", "Click2Learn", "inscription"],
+      "resume": "Comment s'inscrire à des formations même en période d'inter-contrat, avec des places souvent disponibles.",
+      "couleur": "#fff8e1",
+      "actif": true
+    }
+  ]
+}
