@@ -5,163 +5,291 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Newsletters CFE-CGC Sopra Steria</title>
     <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #f8f9fa;
+            --admin-bg: #fff3cd;
+            --article-bg: #f8f9fa;
+            --text-color: #333;
+            --light-text: #666;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: #f5f7fa;
+            color: var(--text-color);
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             text-align: center;
-            color: #0056b3;
-            margin-bottom: 20px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 2.2em;
         }
+
+        /* Barre de recherche */
         .search-container {
             display: flex;
-            margin-bottom: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
             gap: 10px;
         }
+
         #search {
             flex: 1;
+            max-width: 600px;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        #search:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* Mode admin */
+        .admin-banner {
+            display: none;
+            background-color: var(--admin-bg);
             padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #856404;
         }
-        .button {
-            padding: 10px 15px;
-            background-color: #0056b3;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+
+        .admin-banner.show {
+            display: block;
         }
-        .button:hover {
-            background-color: #003d7a;
-        }
+
+        /* Liste des articles */
         .article-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 15px;
+            gap: 20px;
         }
-        .article {
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 4px;
-            background: white;
-            transition: transform 0.2s;
+
+        /* Carte article (mode présentation) */
+        .article-card {
+            background-color: var(--article-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border-left: 5px solid var(--primary-color);
         }
-        .article:hover {
+
+        .article-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
         }
-        .article h2 {
+
+        .article-card h2 {
             margin-top: 0;
-            color: #0056b3;
-            font-size: 18px;
-        }
-        .article .meta {
-            font-size: 14px;
-            color: #666;
+            color: var(--primary-color);
+            font-size: 1.3em;
             margin-bottom: 10px;
         }
-        .article .keywords {
-            font-size: 12px;
+
+        .article-card .resume {
+            font-size: 0.9em;
+            color: var(--light-text);
+            font-style: italic;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .article-card .meta {
+            font-size: 0.8em;
             color: #888;
-            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
         }
-        .article a {
-            color: #0056b3;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
+
+        /* Boutons admin */
+        .article-actions {
+            display: none;
+            margin-top: 15px;
+            gap: 10px;
         }
-        .article a:hover {
-            text-decoration: underline;
+
+        .article-actions.show {
+            display: flex;
         }
+
+        .button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .button-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: #003d7a;
+        }
+
+        .button-edit {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .button-edit:hover {
+            background-color: #1e7e34;
+        }
+
+        .button-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .button-delete:hover {
+            background-color: #a71d2a;
+        }
+
+        .button-add {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .button-add:hover {
+            background-color: #5a6268;
+        }
+
+        /* Modal pour ajouter/modifier */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
         }
+
         .modal-content {
             background-color: white;
-            margin: 10% auto;
-            padding: 20px;
-            border-radius: 8px;
-            width: 80%;
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 10px;
+            width: 90%;
             max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
+
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
         }
+
         .modal-header h2 {
             margin: 0;
-            color: #0056b3;
+            color: var(--primary-color);
         }
+
         .close {
             font-size: 24px;
             cursor: pointer;
+            color: #888;
         }
+
+        .close:hover {
+            color: #333;
+        }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            color: var(--text-color);
         }
-        .form-group input, .form-group textarea {
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 5px;
+            font-size: 14px;
         }
+
         .form-group textarea {
-            height: 60px;
+            height: 80px;
+            resize: vertical;
         }
+
         .modal-footer {
             display: flex;
             justify-content: flex-end;
             gap: 10px;
             margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
         }
-        .delete-btn {
-            background-color: #dc3545;
+
+        /* Couleurs prédéfinies pour les articles */
+        .color-option {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 5px;
+            cursor: pointer;
+            border: 2px solid #ddd;
         }
-        .delete-btn:hover {
-            background-color: #a71d2a;
+
+        .color-option.selected {
+            border: 2px solid var(--primary-color);
         }
-        .edit-btn {
-            background-color: #28a745;
-            margin-right: 10px;
-        }
-        .edit-btn:hover {
-            background-color: #1e7e34;
-        }
-        .article-actions {
-            display: flex;
-            gap: 10px;
+
+        .color-palette {
             margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            #search {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -169,9 +297,14 @@
     <div class="container">
         <h1>Newsletters CFE-CGC Sopra Steria</h1>
         
+        <div class="admin-banner" id="adminBanner">
+            ⚠️ Mode administration activé. 
+            <button class="button button-delete" onclick="closeAdminMode()">Quitter le mode admin</button>
+        </div>
+
         <div class="search-container">
-            <input type="text" id="search" placeholder="Rechercher un article...">
-            <button class="button" onclick="openAddModal()">Ajouter un article</button>
+            <input type="text" id="search" placeholder="Rechercher un article par titre ou mot-clé...">
+            <button class="button button-add" onclick="openAddModal()" id="addButton" style="display: none;">Ajouter un article</button>
         </div>
         
         <div class="article-list" id="articleList">
@@ -202,178 +335,249 @@
                 </div>
                 <div class="form-group">
                     <label for="page">Page</label>
-                    <input type="number" id="page">
+                    <input type="number" id="page" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="resume">Résumé (1 phrase)</label>
+                    <textarea id="resume"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="mots_cles">Mots-clés (séparés par des virgules)</label>
                     <input type="text" id="mots_cles">
                 </div>
                 <div class="form-group">
+                    <label for="couleur">Couleur de fond</label>
+                    <input type="color" id="couleur" value="#f8f9fa">
+                    <div class="color-palette">
+                        <div class="color-option" style="background-color: #f8f9fa;" onclick="setColor('#f8f9fa')"></div>
+                        <div class="color-option" style="background-color: #e3f2fd;" onclick="setColor('#e3f2fd')"></div>
+                        <div class="color-option" style="background-color: #e8f5e9;" onclick="setColor('#e8f5e9')"></div>
+                        <div class="color-option" style="background-color: #fff3e0;" onclick="setColor('#fff3e0')"></div>
+                        <div class="color-option" style="background-color: #fce4ec;" onclick="setColor('#fce4ec')"></div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="actif">Actif</label>
                     <input type="checkbox" id="actif" checked>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="button delete-btn" onclick="deleteArticle()" id="deleteBtn" style="display: none;">Supprimer</button>
-                    <button type="button" class="button" onclick="closeModal()">Annuler</button>
-                    <button type="submit" class="button">Enregistrer</button>
+                    <button type="button" class="button button-delete" onclick="deleteArticle()" id="deleteBtn" style="display: none;">Supprimer</button>
+                    <button type="button" class="button button-primary" onclick="closeModal()">Annuler</button>
+                    <button type="submit" class="button button-primary">Enregistrer</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
+        // Configuration
+        const ADMIN_PASSWORD = "CfeCgc_SSG2026";
         let articles = [];
+        let isAdmin = false;
+
+        // Vérifier le mode admin
+        function checkAdminMode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const adminParam = urlParams.get('admin');
+            isAdmin = adminParam === ADMIN_PASSWORD;
+            
+            if (isAdmin) {
+                document.getElementById('adminBanner').classList.add('show');
+                document.getElementById('addButton').style.display = 'block';
+            }
+        }
+
+        // Quitter le mode admin
+        function closeAdminMode() {
+            window.location.search = '';
+        }
 
         // Charger les articles depuis le JSON
-        fetch('data/articles.json')
-            .then(response => response.json())
-            .then(data => {
-                articles = data.articles;
-                displayArticles(articles);
-            })
-            .catch(error => {
-                console.error('Erreur de chargement du JSON:', error);
-                // Si le JSON n'existe pas, on charge un exemple par défaut
-                articles = [
-                    {
-                        "titre": "Pour une vraie politique seniors à Sopra Steria…",
-                        "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=1",
-                        "newsletter": "2026_05",
-                        "page": 1,
-                        "mots_cles": ["seniors", "politique", "santé", "ergonomie"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Quand trop d'info tue l'info",
-                        "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=2",
-                        "newsletter": "2026_05",
-                        "page": 2,
-                        "mots_cles": ["infobésité", "communication", "outils numériques"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "L'impact de l'IA sur l'emploi",
-                        "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=3",
-                        "newsletter": "2026_05",
-                        "page": 3,
-                        "mots_cles": ["IA", "emploi", "licenciement", "Oracle"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Compte Épargne Temps (CET)",
-                        "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=4",
-                        "newsletter": "2026_05",
-                        "page": 4,
-                        "mots_cles": ["CET", "congés", "épargne"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Jours de congés à écouler avant fin mai : Pensez au don de jours",
-                        "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=4",
-                        "newsletter": "2026_05",
-                        "page": 4,
-                        "mots_cles": ["congés", "don", "solidarité"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Le Compte Personnel de Formation – Comment l’utiliser ?",
-                        "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=5",
-                        "newsletter": "2026_05",
-                        "page": 5,
-                        "mots_cles": ["CPF", "formation", "droits"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Subvention Sport Culture – 90€ (SSG)",
-                        "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=5",
-                        "newsletter": "2026_05",
-                        "page": 5,
-                        "mots_cles": ["sport", "culture", "subvention", "SSG"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Résultats du T1 : Excellents ! La bourse apprécie...",
-                        "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=6",
-                        "newsletter": "2026_05",
-                        "page": 6,
-                        "mots_cles": ["résultats", "bourse", "actionnaires", "salaires"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Retours de CRH, suite",
-                        "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=1",
-                        "newsletter": "2026_04",
-                        "page": 1,
-                        "mots_cles": ["CRH", "augmentations", "sélectivité", "DHG"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Télétravail : Bilan 2025",
-                        "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=2",
-                        "newsletter": "2026_04",
-                        "page": 2,
-                        "mots_cles": ["télétravail", "bilan", "2025"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Participation et Intéressement, comment les gérer (PEE, PERECO, ou paiement)?",
-                        "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=2",
-                        "newsletter": "2026_04",
-                        "page": 2,
-                        "mots_cles": ["participation", "intéressement", "PEE", "PERECO"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Seniors",
-                        "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
-                        "newsletter": "2026_04",
-                        "page": 3,
-                        "mots_cles": ["seniors", "PERECO", "retraite", "optimisation"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Nouveaux élus CFE-CGC",
-                        "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
-                        "newsletter": "2026_04",
-                        "page": 3,
-                        "mots_cles": ["élus", "CFE-CGC", "Arnaud DE BATZ", "Isabelle JULIA"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Rupture Conventionnelle",
-                        "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
-                        "newsletter": "2026_04",
-                        "page": 3,
-                        "mots_cles": ["rupture conventionnelle", "indemnisation", "seniors"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Formations – Bilan 2025 et Plan 2026",
-                        "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=4",
-                        "newsletter": "2026_04",
-                        "page": 4,
-                        "mots_cles": ["formations", "bilan", "2025", "2026", "certifications"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Cette étude amusante révèle que le charabia de l'entreprise n'est pas une preuve de performance...",
-                        "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=4",
-                        "newsletter": "2026_04",
-                        "page": 4,
-                        "mots_cles": ["étude", "jargon", "performance", "management"],
-                        "actif": true
-                    },
-                    {
-                        "titre": "Se former en inter-contrat ? C'est possible !",
-                        "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=5",
-                        "newsletter": "2026_04",
-                        "page": 5,
-                        "mots_cles": ["formation", "inter-contrat", "Click2Learn"],
-                        "actif": true
-                    }
-                ];
-                displayArticles(articles);
-            });
+        function loadArticles() {
+            fetch('data/articles.json')
+                .then(response => response.json())
+                .then(data => {
+                    articles = data.articles;
+                    displayArticles(articles);
+                })
+                .catch(error => {
+                    console.error('Erreur de chargement du JSON:', error);
+                    // Charger un exemple par défaut si le JSON n'existe pas
+                    articles = [
+                        {
+                            "titre": "Pour une vraie politique seniors à Sopra Steria…",
+                            "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=1",
+                            "newsletter": "2026_05",
+                            "page": 1,
+                            "mots_cles": ["seniors", "politique", "santé", "ergonomie"],
+                            "resume": "Analyse des besoins spécifiques des seniors et propositions pour une meilleure intégration.",
+                            "couleur": "#e3f2fd",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Quand trop d'info tue l'info",
+                            "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=2",
+                            "newsletter": "2026_05",
+                            "page": 2,
+                            "mots_cles": ["infobésité", "communication", "outils numériques"],
+                            "resume": "Comment lutter contre la surcharge d'informations au travail.",
+                            "couleur": "#e8f5e9",
+                            "actif": true
+                        },
+                        {
+                            "titre": "L'impact de l'IA sur l'emploi",
+                            "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=3",
+                            "newsletter": "2026_05",
+                            "page": 3,
+                            "mots_cles": ["IA", "emploi", "licenciement", "Oracle"],
+                            "resume": "30 000 licenciements chez Oracle pour financer l'IA : analyse et conséquences.",
+                            "couleur": "#ffebee",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Compte Épargne Temps (CET)",
+                            "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=4",
+                            "newsletter": "2026_05",
+                            "page": 4,
+                            "mots_cles": ["CET", "congés", "épargne"],
+                            "resume": "Comment reporter ou monétiser vos jours de congés avant le 31 mai.",
+                            "couleur": "#fff3e0",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Jours de congés à écouler avant fin mai : Pensez au don de jours",
+                            "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=4",
+                            "newsletter": "2026_05",
+                            "page": 4,
+                            "mots_cles": ["congés", "don", "solidarité"],
+                            "resume": "Faites un don de jours pour aider vos collègues dans le besoin.",
+                            "couleur": "#fce4ec",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Le Compte Personnel de Formation – Comment l’utiliser ?",
+                            "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=5",
+                            "newsletter": "2026_05",
+                            "page": 5,
+                            "mots_cles": ["CPF", "formation", "droits"],
+                            "resume": "Guide pratique pour utiliser votre CPF avant la retraite.",
+                            "couleur": "#e3f2fd",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Subvention Sport Culture – 90€ (SSG)",
+                            "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=5",
+                            "newsletter": "2026_05",
+                            "page": 5,
+                            "mots_cles": ["sport", "culture", "subvention", "SSG"],
+                            "resume": "Bénéficiez d'une subvention de 90€ pour vos activités sportives ou culturelles.",
+                            "couleur": "#e8f5e9",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Résultats du T1 : Excellents ! La bourse apprécie...",
+                            "pdf_url": "pdf/2026_05_Newsletter_CFE-CGC_v0_1.pdf#page=6",
+                            "newsletter": "2026_05",
+                            "page": 6,
+                            "mots_cles": ["résultats", "bourse", "actionnaires", "salaires"],
+                            "resume": "Analyse des résultats du premier trimestre et de leur impact sur les salariés.",
+                            "couleur": "#fff3e0",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Retours de CRH, suite",
+                            "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=1",
+                            "newsletter": "2026_04",
+                            "page": 1,
+                            "mots_cles": ["CRH", "augmentations", "sélectivité", "DHG"],
+                            "resume": "Analyse des inégalités dans les augmentations de salaire.",
+                            "couleur": "#f8f9fa",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Télétravail : Bilan 2025",
+                            "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=2",
+                            "newsletter": "2026_04",
+                            "page": 2,
+                            "mots_cles": ["télétravail", "bilan", "2025"],
+                            "resume": "90% des salariés en télétravail régulier : bilan et perspectives.",
+                            "couleur": "#e3f2fd",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Participation et Intéressement, comment les gérer (PEE, PERECO, ou paiement)?",
+                            "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=2",
+                            "newsletter": "2026_04",
+                            "page": 2,
+                            "mots_cles": ["participation", "intéressement", "PEE", "PERECO"],
+                            "resume": "Optimisez vos placements PEE et PERECO pour maximiser vos avantages.",
+                            "couleur": "#e8f5e9",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Seniors",
+                            "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
+                            "newsletter": "2026_04",
+                            "page": 3,
+                            "mots_cles": ["seniors", "PERECO", "retraite", "optimisation"],
+                            "resume": "Conseils pour les seniors : comment préparer sereinement la retraite.",
+                            "couleur": "#fff3e0",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Nouveaux élus CFE-CGC",
+                            "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
+                            "newsletter": "2026_04",
+                            "page": 3,
+                            "mots_cles": ["élus", "CFE-CGC", "Arnaud DE BATZ", "Isabelle JULIA"],
+                            "resume": "Bienvenue à nos nouveaux représentants élus en 2026.",
+                            "couleur": "#fce4ec",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Rupture Conventionnelle",
+                            "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
+                            "newsletter": "2026_04",
+                            "page": 3,
+                            "mots_cles": ["rupture conventionnelle", "indemnisation", "seniors"],
+                            "resume": "Réduction des durées d'indemnisation : ce que cela change pour vous.",
+                            "couleur": "#ffebee",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Formations – Bilan 2025 et Plan 2026",
+                            "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=4",
+                            "newsletter": "2026_04",
+                            "page": 4,
+                            "mots_cles": ["formations", "bilan", "2025", "2026", "certifications"],
+                            "resume": "Bilan des formations 2025 et objectifs pour 2026 : focus sur le cloud et l'IA.",
+                            "couleur": "#e3f2fd",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Cette étude amusante révèle que le charabia de l'entreprise n'est pas une preuve de performance...",
+                            "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=3",
+                            "newsletter": "2026_04",
+                            "page": 3,
+                            "mots_cles": ["étude", "jargon", "performance", "management"],
+                            "resume": "Pourquoi le jargon managérial est souvent le signe d'une mauvaise performance.",
+                            "couleur": "#fff3e0",
+                            "actif": true
+                        },
+                        {
+                            "titre": "Se former en inter-contrat ? C'est possible !",
+                            "pdf_url": "pdf/2026_04_Newsletter_CFE-CGC_v0_1.pdf#page=5",
+                            "newsletter": "2026_04",
+                            "page": 5,
+                            "mots_cles": ["formation", "inter-contrat", "Click2Learn"],
+                            "resume": "Comment s'inscrire à des formations même en période d'inter-contrat.",
+                            "couleur": "#e8f5e9",
+                            "actif": true
+                        }
+                    ];
+                    displayArticles(articles);
+                });
+        }
 
         // Afficher les articles
         function displayArticles(articlesToDisplay) {
@@ -383,24 +587,36 @@
             articlesToDisplay.forEach((article, index) => {
                 if (article.actif) {
                     const articleElement = document.createElement('div');
-                    articleElement.className = 'article';
-                    articleElement.dataset.keywords = article.mots_cles.join(', ');
+                    articleElement.className = 'article-card';
+                    articleElement.style.backgroundColor = article.couleur || '#f8f9fa';
+                    articleElement.onclick = function() {
+                        window.open(article.pdf_url, '_blank');
+                    };
 
-                    const keywordsText = article.mots_cles.length > 0 
-                        ? `<div class="keywords">Mots-clés: ${article.mots_cles.join(', ')}</div>` 
-                        : '';
+                    const metaInfo = `Newsletter: ${article.newsletter} | Page: ${article.page}`;
+                    const resumeText = article.resume ? `<p class="resume">${article.resume}</p>` : '';
 
                     articleElement.innerHTML = `
                         <h2>${article.titre}</h2>
+                        ${resumeText}
                         <div class="meta">
-                            Newsletter: ${article.newsletter} | Page: ${article.page}
-                        </div>
-                        ${keywordsText}
-                        <a href="${article.pdf_url}" target="_blank">Lire l'article</a>
-                        <div class="article-actions">
-                            <button class="button edit-btn" onclick="openEditModal(${index})">Modifier</button>
+                            <span>${metaInfo}</span>
                         </div>
                     `;
+
+                    // Ajouter les boutons admin si le mode admin est activé
+                    if (isAdmin) {
+                        const actionsDiv = document.createElement('div');
+                        actionsDiv.className = 'article-actions show';
+                        actionsDiv.innerHTML = `
+                            <button class="button button-edit" onclick="event.stopPropagation(); openEditModal(${index});">Modifier</button>
+                        `;
+                        articleElement.appendChild(actionsDiv);
+                        // Désactiver le clic sur la carte si on clique sur un bouton
+                        actionsDiv.onclick = function(e) {
+                            e.stopPropagation();
+                        };
+                    }
 
                     articleList.appendChild(articleElement);
                 }
@@ -413,8 +629,9 @@
             const filteredArticles = articles.filter(article => {
                 const titleMatch = article.titre.toLowerCase().includes(query);
                 const keywordsMatch = article.mots_cles.some(kw => kw.toLowerCase().includes(query));
+                const resumeMatch = article.resume ? article.resume.toLowerCase().includes(query) : false;
                 const newsletterMatch = article.newsletter.toLowerCase().includes(query);
-                return titleMatch || keywordsMatch || newsletterMatch;
+                return titleMatch || keywordsMatch || resumeMatch || newsletterMatch;
             });
             displayArticles(filteredArticles);
         });
@@ -430,7 +647,9 @@
             document.getElementById('pdf_url').value = '';
             document.getElementById('newsletter').value = '';
             document.getElementById('page').value = '';
+            document.getElementById('resume').value = '';
             document.getElementById('mots_cles').value = '';
+            document.getElementById('couleur').value = '#f8f9fa';
             document.getElementById('actif').checked = true;
             document.getElementById('deleteBtn').style.display = 'none';
             modal.style.display = 'block';
@@ -444,7 +663,9 @@
             document.getElementById('pdf_url').value = article.pdf_url;
             document.getElementById('newsletter').value = article.newsletter;
             document.getElementById('page').value = article.page;
+            document.getElementById('resume').value = article.resume || '';
             document.getElementById('mots_cles').value = article.mots_cles.join(', ');
+            document.getElementById('couleur').value = article.couleur || '#f8f9fa';
             document.getElementById('actif').checked = article.actif;
             document.getElementById('deleteBtn').style.display = 'block';
             modal.style.display = 'block';
@@ -452,6 +673,16 @@
 
         function closeModal() {
             modal.style.display = 'none';
+        }
+
+        function setColor(color) {
+            document.getElementById('couleur').value = color;
+            // Retirer la classe selected de tous les color-option
+            document.querySelectorAll('.color-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            // Ajouter la classe selected à l'option cliquée
+            event.target.classList.add('selected');
         }
 
         function saveArticle(event) {
@@ -462,7 +693,9 @@
                 pdf_url: document.getElementById('pdf_url').value,
                 newsletter: document.getElementById('newsletter').value,
                 page: parseInt(document.getElementById('page').value) || 1,
+                resume: document.getElementById('resume').value,
                 mots_cles: document.getElementById('mots_cles').value.split(',').map(kw => kw.trim()),
+                couleur: document.getElementById('couleur').value,
                 actif: document.getElementById('actif').checked
             };
 
@@ -472,7 +705,7 @@
                 articles[index] = article;
             }
 
-            // Sauvegarder dans le JSON (simulé ici, en vrai il faudrait une API ou un système de fichiers)
+            // Sauvegarder dans le JSON (simulé ici)
             saveArticlesToJSON();
             displayArticles(articles);
             closeModal();
@@ -481,10 +714,12 @@
         function deleteArticle() {
             const index = document.getElementById('articleIndex').value;
             if (index !== '') {
-                articles[index].actif = false;
-                saveArticlesToJSON();
-                displayArticles(articles);
-                closeModal();
+                if (confirm('Voulez-vous vraiment supprimer cet article ?')) {
+                    articles[index].actif = false;
+                    saveArticlesToJSON();
+                    displayArticles(articles);
+                    closeModal();
+                }
             }
         }
 
@@ -493,7 +728,7 @@
             const data = { articles: articles };
             // En local, on ne peut pas écrire directement dans un fichier JSON sur GitHub Pages.
             // Il faudrait utiliser GitHub API ou un backend. Pour l'instant, on affiche un message.
-            alert('Pour sauvegarder les modifications, téléchargez le fichier JSON mis à jour et remplacez-le dans votre dépôt GitHub.');
+            alert('Pour sauvegarder les modifications :\n\n1. Copiez ce JSON :\n\n' + JSON.stringify(data, null, 2) + '\n\n2. Collez-le dans le fichier data/articles.json de votre dépôt GitHub.');
             console.log('Nouveau JSON:', JSON.stringify(data, null, 2));
         }
 
@@ -504,6 +739,10 @@
                 closeModal();
             }
         }
+
+        // Initialisation
+        checkAdminMode();
+        loadArticles();
     </script>
 </body>
 </html>
